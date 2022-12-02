@@ -14,15 +14,23 @@ describe('insertTableRow', () => {
         <editor>
           <htable>
             <htr>
-              <htd>11</htd>
-              <htd>12</htd>
+              <htd>
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
             </htr>
             <htr>
               <htd>
-                21
-                <cursor />
+                <hp>
+                  21
+                  <cursor />
+                </hp>
               </htd>
-              <htd>22</htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
             </htr>
           </htable>
         </editor>
@@ -32,19 +40,31 @@ describe('insertTableRow', () => {
         <editor>
           <htable>
             <htr>
-              <htd>11</htd>
-              <htd>12</htd>
-            </htr>
-            <htr>
-              <htd>21</htd>
-              <htd>22</htd>
-            </htr>
-            <htr>
               <htd>
-                <cursor />
+                <hp>11</hp>
               </htd>
               <htd>
-                <htext />
+                <hp>12</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>21</hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>
+                  <cursor />
+                </hp>
+              </htd>
+              <htd>
+                <hp>
+                  <htext />
+                </hp>
               </htd>
             </htr>
           </htable>
@@ -61,6 +81,85 @@ describe('insertTableRow', () => {
       });
 
       insertTableRow(editor);
+
+      expect(editor.children).toEqual(output.children);
+      expect(editor.selection).toEqual(output.selection);
+    });
+  });
+
+  describe('when inserting a table row at specific path', () => {
+    it('should insert a tr with empty cells', () => {
+      const input = ((
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>
+                  21
+                  <cursor />
+                </hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
+            </htr>
+          </htable>
+        </editor>
+      ) as any) as PlateEditor;
+
+      const output = ((
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>
+                  <cursor />
+                </hp>
+              </htd>
+              <htd>
+                <hp>
+                  <htext />
+                </hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>21</hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
+            </htr>
+          </htable>
+        </editor>
+      ) as any) as PlateEditor;
+
+      const editor = createPlateEditor({
+        editor: input,
+        plugins: [
+          createTablePlugin({
+            options: { newCellChildren: [{ text: '' }] },
+          }),
+        ],
+      });
+
+      insertTableRow(editor, { at: [0, 0] });
 
       expect(editor.children).toEqual(output.children);
       expect(editor.selection).toEqual(output.selection);

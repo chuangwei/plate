@@ -1,5 +1,70 @@
 # @udecode/plate-dnd
 
+## 18.13.0
+
+## 18.10.1
+
+### Patch Changes
+
+- [#1991](https://github.com/udecode/plate/pull/1991) by [@zbeyens](https://github.com/zbeyens) – fix
+
+## 18.9.0
+
+## 18.8.0
+
+### Minor Changes
+
+- [#1966](https://github.com/udecode/plate/pull/1966) by [@zbeyens](https://github.com/zbeyens) – dnd plugin - new options:
+  - `enableScroller`: this adds a scroll area at the top and bottom of the window so the document scrolls when the mouse drags over. If you have another scroll container, you can either keep it disabled or override the props so the scroll areas are correctly positioned.
+  - `scrollerProps`
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.2.0
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.6.1
+
+### Patch Changes
+
+- [`4d03e4a`](https://github.com/udecode/plate/commit/4d03e4a42318ed87531b831d585510fcef38f11f) by [@zbeyens](https://github.com/zbeyens) – `Draggable`: Set `gutterLeft` before the block to fix a selection bug.
+
+## 16.5.0
+
+### Patch Changes
+
+- [#1832](https://github.com/udecode/plate/pull/1832) by [@zbeyens](https://github.com/zbeyens) – Fix: `DraggableProps.level` type accepts `null`
+
+## 16.3.0
+
+## 16.2.0
+
+### Patch Changes
+
+- [#1778](https://github.com/udecode/plate/pull/1778) by [@zbeyens](https://github.com/zbeyens) –
+  - `withDraggable`: default `level` option is now 0 as expected
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.3
+
 ## 15.0.0
 
 ## 14.4.2

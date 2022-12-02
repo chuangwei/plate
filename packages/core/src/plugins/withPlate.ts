@@ -21,7 +21,7 @@ export const withPlate = <
 >(
   e: E,
   {
-    id = 'main',
+    id,
     plugins = [],
     disableCorePlugins,
   }: WithPlateOptions<V, E & PlateEditor<V>> = {}
@@ -30,12 +30,13 @@ export const withPlate = <
 
   editor.id = id as string;
   editor.prevSelection = null;
+  editor.currentKeyboardEvent = null;
 
   if (!editor.key) {
     editor.key = Math.random();
   }
 
-  setPlatePlugins(editor, {
+  setPlatePlugins<V>(editor, {
     plugins: plugins as any,
     disableCorePlugins,
   });

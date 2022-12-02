@@ -26,6 +26,7 @@ module.exports = {
         'guides/store',
         'guides/multiple-editors',
         'guides/typescript',
+        'guides/cloud',
       ],
       collapsed: false,
     },
@@ -42,12 +43,11 @@ module.exports = {
             'plugins/basic-elements',
             'plugins/excalidraw',
             'plugins/horizontal-rule',
-            'plugins/image',
             'plugins/indent',
             'plugins/indent-list',
             'plugins/line-height',
             'plugins/list',
-            'plugins/media-embed',
+            'plugins/media',
             'plugins/table',
           ],
           collapsed: false,
@@ -55,7 +55,12 @@ module.exports = {
         {
           type: 'category',
           label: 'Inline Elements',
-          items: ['plugins/link', 'plugins/combobox', 'plugins/mention'],
+          items: [
+            'plugins/link',
+            'plugins/combobox',
+            'plugins/emoji',
+            'plugins/mention',
+          ],
           collapsed: false,
         },
         {
@@ -63,6 +68,7 @@ module.exports = {
           label: 'Marks',
           items: [
             'plugins/basic-marks',
+            'plugins/comments',
             'plugins/font',
             'plugins/highlight',
             'plugins/kbd',
@@ -80,6 +86,7 @@ module.exports = {
           label: 'Utils',
           items: [
             'plugins/autoformat',
+            'plugins/block-selection',
             'plugins/exit-break',
             'plugins/reset-node',
             'plugins/soft-break',

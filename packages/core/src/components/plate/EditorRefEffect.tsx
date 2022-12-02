@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useEditorRef } from '../../hooks/slate/useEditorRef';
 import {
-  getPlateActions,
+  PlateId,
+  usePlateActions,
   usePlateSelectors,
-} from '../../stores/plate/platesStore';
+} from '../../stores/index';
 import { WithPlatePlugin } from '../../types/plugin/PlatePlugin';
-import { PlateProps } from './Plate';
 
 export const EditorRefPluginEffect = ({
   plugin,
@@ -19,22 +19,21 @@ export const EditorRefPluginEffect = ({
   return null;
 };
 
-export const EditorRefEffect = ({ id }: Pick<PlateProps, 'id'>) => {
-  const editor = useEditorRef();
-  usePlateSelectors(id).keyPlugins();
+export const EditorRefEffect = ({ id }: { id?: PlateId }) => {
+  const setIsRendered = usePlateActions(id).isRendered();
+  const plugins = usePlateSelectors(id).plugins();
 
   useEffect(() => {
-    const plateActions = getPlateActions(editor.id);
-    plateActions.isRendered(true);
+    setIsRendered(true);
 
     return () => {
-      plateActions.isRendered(false);
+      setIsRendered(false);
     };
-  }, [editor.id]);
+  }, [setIsRendered]);
 
   return (
     <>
-      {editor.plugins.map((plugin) => (
+      {plugins.map((plugin) => (
         <EditorRefPluginEffect key={plugin.key} plugin={plugin} />
       ))}
     </>

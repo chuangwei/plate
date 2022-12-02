@@ -1,5 +1,67 @@
 # @udecode/plate-ui-combobox
 
+## 18.13.0
+
+## 18.9.0
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.5.1
+
+## 18.4.0
+
+### Patch Changes
+
+- [#1945](https://github.com/udecode/plate/pull/1945) by [@zbeyens](https://github.com/zbeyens) – Combobox: `disabled` prop. Default is `!items.length`
+
+## 18.2.0
+
+## 18.1.2
+
+### Patch Changes
+
+- [#1914](https://github.com/udecode/plate/pull/1914) by [@zbeyens](https://github.com/zbeyens) – fix: do not display combobox if there is no items
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.5.0
+
+## 16.3.0
+
+## 16.2.3
+
+### Patch Changes
+
+- [#1786](https://github.com/udecode/plate/pull/1786) by [@zbeyens](https://github.com/zbeyens) – fix: `floatingOptions` is now a `Combobox` prop
+
+## 16.2.0
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.4
+
+### Patch Changes
+
+- [#1716](https://github.com/udecode/plate/pull/1716) by [@dylans](https://github.com/dylans) – Allow ComboBox and Mentions to stay on screen / flip when at bottom of viewport
+
+## 15.0.3
+
 ## 15.0.0
 
 ## 14.4.2

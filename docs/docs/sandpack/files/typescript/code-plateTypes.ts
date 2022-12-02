@@ -37,9 +37,6 @@ export const plateTypesCode = `import {
   ENodeEntry,
   EText,
   ETextEntry,
-  getPlateActions,
-  getPlateEditorRef,
-  getPlateSelectors,
   getTEditor,
   InjectComponent,
   InjectProps,
@@ -48,6 +45,7 @@ export const plateTypesCode = `import {
   OnChange,
   OverrideByKey,
   PlateEditor,
+  PlateId,
   PlatePlugin,
   PlatePluginComponent,
   PlatePluginInsertData,
@@ -55,6 +53,7 @@ export const plateTypesCode = `import {
   PlateProps,
   PluginOptions,
   SerializeHtml,
+  TCommentText,
   TElement,
   TImageElement,
   TLinkElement,
@@ -68,9 +67,11 @@ export const plateTypesCode = `import {
   TTodoListItemElement,
   useEditorRef,
   useEditorState,
+  usePlateActions,
   usePlateEditorRef,
   usePlateEditorState,
   usePlateSelectors,
+  usePlateStates,
   WithOverride,
 } from '@udecode/plate';
 // import {
@@ -91,7 +92,7 @@ export type PlainText = {
   text: string;
 };
 
-export interface RichText extends TText {
+export interface RichText extends TText, TCommentText {
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;
@@ -142,6 +143,7 @@ export interface MyIndentProps {
 
 export interface MyIndentListProps extends MyIndentProps {
   listStart?: number;
+  listRestart?: number;
   listStyleType?: string;
 }
 
@@ -150,14 +152,14 @@ export interface MyLineHeightProps {
 }
 
 export interface MyAlignProps {
-  textAlign?: CSSProperties['textAlign'];
+  align?: CSSProperties['textAlign'];
 }
 
 export interface MyBlockElement
   extends TElement,
     MyIndentListProps,
     MyLineHeightProps {
-  id?: string;
+  id?: PlateId;
 }
 
 /**
@@ -339,18 +341,16 @@ export const getMyEditor = (editor: MyEditor) =>
   getTEditor<MyValue, MyEditor>(editor);
 export const useMyEditorRef = () => useEditorRef<MyValue, MyEditor>();
 export const useMyEditorState = () => useEditorState<MyValue, MyEditor>();
-export const useMyPlateEditorRef = (id?: string) =>
+export const useMyPlateEditorRef = (id?: PlateId) =>
   usePlateEditorRef<MyValue, MyEditor>(id);
-export const getMyPlateEditorRef = (id?: string) =>
-  getPlateEditorRef<MyValue, MyEditor>(id);
-export const useMyPlateEditorState = (id?: string) =>
+export const useMyPlateEditorState = (id?: PlateId) =>
   usePlateEditorState<MyValue, MyEditor>(id);
-export const useMyPlateSelectors = (id?: string) =>
+export const useMyPlateSelectors = (id?: PlateId) =>
   usePlateSelectors<MyValue, MyEditor>(id);
-export const getMyPlateSelectors = (id?: string) =>
-  getPlateSelectors<MyValue, MyEditor>(id);
-export const getMyPlateActions = (id?: string) =>
-  getPlateActions<MyValue, MyEditor>(id);
+export const useMyPlateActions = (id?: PlateId) =>
+  usePlateActions<MyValue, MyEditor>(id);
+export const useMyPlateStates = (id?: PlateId) =>
+  usePlateStates<MyValue, MyEditor>(id);
 
 /**
  * Utils

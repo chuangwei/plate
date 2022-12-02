@@ -1,5 +1,54 @@
 # @udecode/plate-toolbar
 
+## 18.13.0
+
+## 18.12.1
+
+### Patch Changes
+
+- [#2027](https://github.com/udecode/plate/pull/2027) by [@bojangles-m](https://github.com/bojangles-m) – Feat/floating UI toolbar dropdown
+
+## 18.9.0
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.2.0
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.5.0
+
+## 16.3.0
+
+## 16.2.0
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+### Minor Changes
+
+- [#1721](https://github.com/udecode/plate/pull/1721) by [@zbeyens](https://github.com/zbeyens) –
+  - `FloatingVerticalDivider`
+  - new dep:
+    - `@udecode/plate-ui-button`
+
+## 15.0.3
+
 ## 15.0.0
 
 ### Major Changes

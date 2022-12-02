@@ -85,7 +85,7 @@ export type ComboboxState<TData = NoData> = {
   /**
    * Overrides `useFloating` options.
    */
-  floatingOptions?: Partial<UseVirtualFloatingOptions>;
+  floatingOptions: Partial<UseVirtualFloatingOptions>;
 
   /**
    * Range from the trigger to the cursor.
@@ -104,6 +104,7 @@ const createComboboxStore = (state: ComboboxStateById) =>
 export const comboboxStore = createStore('combobox')<ComboboxState>({
   activeId: null,
   byId: {},
+  floatingOptions: {},
   highlightedIndex: 0,
   items: [],
   filteredItems: [],
@@ -127,6 +128,7 @@ export const comboboxStore = createStore('combobox')<ComboboxState>({
       set.state((draft) => {
         draft.activeId = null;
         draft.highlightedIndex = 0;
+        draft.filteredItems = [];
         draft.items = [];
         draft.text = null;
         draft.targetRange = null;

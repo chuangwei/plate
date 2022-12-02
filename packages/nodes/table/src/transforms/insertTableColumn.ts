@@ -5,13 +5,14 @@ import {
   getPluginType,
   insertElements,
   PlateEditor,
+  setNodes,
   TElement,
   Value,
   withoutNormalizing,
 } from '@udecode/plate-core';
 import { Path } from 'slate';
 import { ELEMENT_TABLE, ELEMENT_TH } from '../createTablePlugin';
-import { TablePlugin } from '../types';
+import { TablePlugin, TTableElement } from '../types';
 import { getEmptyCellNode } from '../utils/getEmptyCellNode';
 import { getCellTypes } from '../utils/index';
 
@@ -20,6 +21,7 @@ export const insertTableColumn = <V extends Value>(
   {
     disableSelect,
     fromCell,
+    at,
     header,
   }: {
     header?: boolean;
@@ -28,6 +30,12 @@ export const insertTableColumn = <V extends Value>(
      * Path of the cell to insert the column from.
      */
     fromCell?: Path;
+
+    /**
+     * Exact path of the cell to insert the column at.
+     * Will overrule `fromCell`.
+     */
+    at?: Path;
 
     /**
      * Disable selection after insertion.
@@ -47,15 +55,24 @@ export const insertTableColumn = <V extends Value>(
 
   const [, cellPath] = cellEntry;
 
-  const tableEntry = getBlockAbove(editor, {
+  const tableEntry = getBlockAbove<TTableElement>(editor, {
     match: { type: getPluginType(editor, ELEMENT_TABLE) },
     at: cellPath,
   });
   if (!tableEntry) return;
 
-  const [tableNode] = tableEntry;
+  const [tableNode, tablePath] = tableEntry;
 
-  const nextCellPath = Path.next(cellPath);
+  let nextCellPath: Path;
+  let nextColIndex: number;
+
+  if (Path.isPath(at)) {
+    nextCellPath = at;
+    nextColIndex = at[at.length - 1];
+  } else {
+    nextCellPath = Path.next(cellPath);
+    nextColIndex = cellPath[cellPath.length - 1] + 1;
+  }
   const currentRowIndex = cellPath[cellPath.length - 2];
 
   const { newCellChildren } = getPluginOptions<TablePlugin, V>(
@@ -67,7 +84,11 @@ export const insertTableColumn = <V extends Value>(
     // for each row, insert a new cell
     tableNode.children.forEach((row, rowIndex) => {
       const insertCellPath = [...nextCellPath];
-      insertCellPath[cellPath.length - 2] = rowIndex;
+      if (Path.isPath(at)) {
+        insertCellPath[at.length - 2] = rowIndex;
+      } else {
+        insertCellPath[cellPath.length - 2] = rowIndex;
+      }
 
       const isHeaderRow =
         header === undefined
@@ -87,5 +108,23 @@ export const insertTableColumn = <V extends Value>(
         }
       );
     });
+
+    const { colSizes } = tableNode;
+
+    if (colSizes) {
+      setNodes<TTableElement>(
+        editor,
+        {
+          colSizes: [
+            ...colSizes.slice(0, nextColIndex),
+            0,
+            ...colSizes.slice(nextColIndex),
+          ],
+        },
+        {
+          at: tablePath,
+        }
+      );
+    }
   });
 };

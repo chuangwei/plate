@@ -1,6 +1,5 @@
 import {
   ELEMENT_BLOCKQUOTE,
-  ELEMENT_CODE_BLOCK,
   ELEMENT_CODE_LINE,
   ELEMENT_CODE_SYNTAX,
   ELEMENT_H1,
@@ -26,6 +25,7 @@ import {
   ELEMENT_UL,
   MARK_BOLD,
   MARK_CODE,
+  MARK_COMMENT,
   MARK_HIGHLIGHT,
   MARK_ITALIC,
   MARK_KBD,
@@ -39,16 +39,12 @@ import {
 } from '@udecode/plate-headless';
 import { StyledElement, StyledLeaf } from '@udecode/plate-styled-components';
 import { BlockquoteElement } from '@udecode/plate-ui-block-quote';
-import {
-  CodeBlockElement,
-  CodeLineElement,
-  CodeSyntaxLeaf,
-} from '@udecode/plate-ui-code-block';
+import { CodeLineElement, CodeSyntaxLeaf } from '@udecode/plate-ui-code-block';
+import { PlateCommentLeaf } from '@udecode/plate-ui-comments';
 import { HrElement } from '@udecode/plate-ui-horizontal-rule';
-import { ImageElement } from '@udecode/plate-ui-image';
 import { LinkElement } from '@udecode/plate-ui-link';
 import { TodoListElement } from '@udecode/plate-ui-list';
-import { MediaEmbedElement } from '@udecode/plate-ui-media-embed';
+import { ImageElement, MediaEmbedElement } from '@udecode/plate-ui-media';
 import { MentionElement, MentionInputElement } from '@udecode/plate-ui-mention';
 import {
   TableCellElement,
@@ -66,7 +62,7 @@ export const createPlateUI = <T extends string = string>(
 ) => {
   const components = {
     [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
-    [ELEMENT_CODE_BLOCK]: CodeBlockElement,
+    // [ELEMENT_CODE_BLOCK]: CodeBlockElement,
     [ELEMENT_CODE_LINE]: CodeLineElement,
     [ELEMENT_CODE_SYNTAX]: CodeSyntaxLeaf,
     [ELEMENT_HR]: HrElement,
@@ -167,7 +163,7 @@ export const createPlateUI = <T extends string = string>(
     [ELEMENT_PARAGRAPH]: withProps(StyledElement, {
       as: 'p',
       styles: {
-        root: tw`m-0 py-1 px-0`,
+        root: tw`px-0 py-1 m-0`,
       },
       prefixClassNames: 'p',
     }),
@@ -247,6 +243,7 @@ export const createPlateUI = <T extends string = string>(
     [MARK_SUBSCRIPT]: withProps(StyledLeaf, { as: 'sub' }),
     [MARK_SUPERSCRIPT]: withProps(StyledLeaf, { as: 'sup' }),
     [MARK_UNDERLINE]: withProps(StyledLeaf, { as: 'u' }),
+    [MARK_COMMENT]: PlateCommentLeaf,
   };
 
   if (overrideByKey) {

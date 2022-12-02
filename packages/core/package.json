@@ -1,6 +1,6 @@
 {
   "name": "@udecode/plate-core",
-  "version": "15.0.0",
+  "version": "18.13.0",
   "description": "The core architecture of Plate – a plugin system for slate",
   "license": "MIT",
   "homepage": "https://plate.udecode.io",
@@ -19,11 +19,12 @@
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@radix-ui/react-slot": "^0.1.2",
+    "@radix-ui/react-slot": "^1.0.1",
     "@udecode/zustood": "^1.1.1",
     "clsx": "^1.1.1",
     "jotai": "^1.7.2",
     "lodash": "^4.17.21",
+    "nanoid": "^3.3.4",
     "react-hotkeys-hook": "^3.4.6",
     "use-deep-compare": "^1.1.0",
     "zustand": "^3.7.2"
@@ -31,9 +32,9 @@
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
-    "slate": ">=0.66.1",
+    "slate": ">=0.78.0",
     "slate-history": ">=0.66.0",
-    "slate-react": ">=0.74.2"
+    "slate-react": ">=0.79.0"
   },
   "keywords": [
     "contentEditable",

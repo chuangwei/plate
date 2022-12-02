@@ -1,7 +1,10 @@
 import {
+  cloudUiVersion,
+  cloudVersion,
   excalidrawVersion,
   juiceVersion,
   plateVersion,
+  selectionVersion,
   testUtilsVersion,
 } from './plate-versions';
 
@@ -17,8 +20,18 @@ export const juiceDeps = {
   '@udecode/plate-juice': juiceVersion,
 };
 
+export const selectionDeps = {
+  '@udecode/plate-selection': selectionVersion,
+};
+
+export const cloudDeps = {
+  '@udecode/plate-cloud': cloudVersion,
+  '@udecode/plate-ui-cloud': cloudUiVersion,
+};
+
 export const commonDeps = {
   '@udecode/plate': plateVersion,
+  nanoid: '3.3.4',
   react: '17.0.2',
   'react-dom': '17.0.2',
   'react-scripts': '4.0.3',
@@ -44,4 +57,5 @@ export const playgroundDeps = {
   ...toolbarDeps,
   ...excalidrawDeps,
   ...juiceDeps,
+  ...selectionDeps,
 };

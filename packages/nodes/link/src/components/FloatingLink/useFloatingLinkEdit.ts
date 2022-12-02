@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from 'react';
 import {
-  focusEditor,
   getAboveNode,
   getEndPoint,
   getPluginOptions,
@@ -18,7 +17,6 @@ import {
   getRangeBoundingClientRect,
 } from '@udecode/plate-floating';
 import { ELEMENT_LINK, LinkPlugin } from '../../createLinkPlugin';
-import { submitFloatingLink } from '../../transforms/submitFloatingLink';
 import { triggerFloatingLinkEdit } from '../../utils/triggerFloatingLinkEdit';
 import { FloatingLinkProps } from './FloatingLink';
 import {
@@ -26,6 +24,8 @@ import {
   floatingLinkSelectors,
   useFloatingLinkSelectors,
 } from './floatingLinkStore';
+import { useFloatingLinkEnter } from './useFloatingLinkEnter';
+import { useFloatingLinkEscape } from './useFloatingLinkEscape';
 import { useVirtualFloatingLink } from './useVirtualFloatingLink';
 
 export const useFloatingLinkEdit = ({
@@ -33,9 +33,9 @@ export const useFloatingLinkEdit = ({
   ...props
 }: FloatingLinkProps): HTMLPropsAs<'div'> => {
   const editor = useEditorRef();
-  const keyEditor = usePlateSelectors(editor.id).keyEditor();
+  const keyEditor = usePlateSelectors().keyEditor();
   const mode = useFloatingLinkSelectors().mode();
-  const open = useFloatingLinkSelectors().open();
+  const open = useFloatingLinkSelectors().isOpen(editor.id);
 
   const { triggerFloatingLinkHotkeys } = getPluginOptions<LinkPlugin>(
     editor,
@@ -61,6 +61,7 @@ export const useFloatingLinkEdit = ({
   const isOpen = open && mode === 'edit';
 
   const { update, style, floating } = useVirtualFloatingLink({
+    editorId: editor.id,
     open: isOpen,
     getBoundingClientRect,
     ...floatingOptions,
@@ -73,7 +74,7 @@ export const useFloatingLinkEdit = ({
         match: { type: getPluginType(editor, ELEMENT_LINK) },
       })
     ) {
-      floatingLinkActions.show('edit');
+      floatingLinkActions.show('edit', editor.id);
       update();
       return;
     }
@@ -85,49 +86,23 @@ export const useFloatingLinkEdit = ({
 
   useHotkeys(
     triggerFloatingLinkHotkeys!,
-    () => {
-      if (floatingLinkSelectors.mode() === 'edit') {
-        triggerFloatingLinkEdit(editor);
-      }
-    },
-    {
-      enableOnContentEditable: true,
-    },
-    []
-  );
-
-  useHotkeys(
-    'enter',
     (e) => {
-      if (submitFloatingLink(editor)) {
+      if (
+        floatingLinkSelectors.mode() === 'edit' &&
+        triggerFloatingLinkEdit(editor)
+      ) {
         e.preventDefault();
       }
     },
     {
-      enableOnTags: ['INPUT'],
-    },
-    []
-  );
-
-  useHotkeys(
-    'escape',
-    () => {
-      if (floatingLinkSelectors.mode() !== 'edit') return;
-
-      if (floatingLinkSelectors.isEditing()) {
-        floatingLinkActions.show('edit');
-        focusEditor(editor, editor.selection!);
-        return;
-      }
-
-      floatingLinkActions.hide();
-    },
-    {
-      enableOnTags: ['INPUT'],
       enableOnContentEditable: true,
     },
     []
   );
+
+  useFloatingLinkEnter();
+
+  useFloatingLinkEscape();
 
   return {
     style: {

@@ -10,6 +10,7 @@ import {
   createCodeBlockPlugin,
   createCodePlugin,
   createComboboxPlugin,
+  createCommentsPlugin,
   createDeserializeCsvPlugin,
   createDeserializeDocxPlugin,
   createDeserializeMdPlugin,
@@ -43,12 +44,13 @@ import {
   createTodoListPlugin,
   createTrailingBlockPlugin,
   createUnderlinePlugin,
-  ELEMENT_CODE_BLOCK,
   MentionCombobox,
   Plate,
-  StyledElement,
+  PlateFloatingComments,
+  PlateProvider,
 } from '@udecode/plate';
 import { createJuicePlugin } from '@udecode/plate-juice';
+import { createBlockSelectionPlugin } from '@udecode/plate-selection';
 import {
   createExcalidrawPlugin,
   ELEMENT_EXCALIDRAW,
@@ -56,7 +58,8 @@ import {
 } from '@udecode/plate-ui-excalidraw';
 import { alignPlugin } from './align/alignPlugin';
 import { autoformatPlugin } from './autoformat/autoformatPlugin';
-import { MarkBalloonToolbar } from './balloon-toolbar/MarkBalloonToolbar';
+import { CommentBalloonToolbar } from './comments/CommentBalloonToolbar';
+import { MyCommentsProvider } from './comments/MyCommentsProvider';
 import { editableProps } from './common/editableProps';
 import { CursorOverlayContainer } from './cursor-overlay/CursorOverlayContainer';
 import { dragOverCursorPlugin } from './cursor-overlay/dragOverCursorPlugin';
@@ -83,7 +86,6 @@ import { ToolbarButtons } from './ToolbarButtons';
 
 let components = createPlateUI({
   [ELEMENT_EXCALIDRAW]: ExcalidrawElement,
-  [ELEMENT_CODE_BLOCK]: StyledElement,
   // customize your components by plugin key
 });
 components = withStyledPlaceHolders(components);
@@ -125,7 +127,8 @@ const App = () => {
           createFontSizePlugin(),
           createKbdPlugin(),
           createNodeIdPlugin(),
-          createDndPlugin(),
+          createBlockSelectionPlugin(),
+          createDndPlugin({ options: { enableScroller: true } }),
           dragOverCursorPlugin,
           createIndentPlugin(indentPlugin),
           createAutoformatPlugin<
@@ -141,6 +144,7 @@ const App = () => {
           createSelectOnBackspacePlugin(selectOnBackspacePlugin),
           createComboboxPlugin(),
           createMentionPlugin(),
+          createCommentsPlugin(),
           createDeserializeMdPlugin(),
           createDeserializeCsvPlugin(),
           createDeserializeDocxPlugin(),
@@ -155,23 +159,25 @@ const App = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Toolbar>
-        <ToolbarButtons />
-      </Toolbar>
+      <PlateProvider<MyValue> initialValue={playgroundValue} plugins={plugins}>
+        <Toolbar>
+          <ToolbarButtons />
+        </Toolbar>
 
-      <div ref={containerRef} style={styles.container}>
-        <Plate<MyValue, MyEditor>
-          editableProps={editableProps}
-          initialValue={playgroundValue}
-          plugins={plugins}
-        >
-          <MarkBalloonToolbar />
+        <MyCommentsProvider>
+          <div ref={containerRef} style={styles.container}>
+            <Plate editableProps={editableProps}>
+              <CommentBalloonToolbar />
 
-          <MentionCombobox items={MENTIONABLES} />
+              <MentionCombobox items={MENTIONABLES} />
 
-          <CursorOverlayContainer containerRef={containerRef} />
-        </Plate>
-      </div>
+              <CursorOverlayContainer containerRef={containerRef} />
+            </Plate>
+          </div>
+
+          <PlateFloatingComments />
+        </MyCommentsProvider>
+      </PlateProvider>
     </DndProvider>
   );
 };

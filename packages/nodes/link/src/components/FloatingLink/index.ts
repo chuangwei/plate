@@ -4,6 +4,7 @@
 
 export * from './FloatingLink';
 export * from './FloatingLinkEditButton';
+export * from './FloatingLinkNewTabInput';
 export * from './FloatingLinkTextInput';
 export * from './FloatingLinkUrlInput';
 export * from './OpenLinkButton';

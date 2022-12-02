@@ -12,8 +12,10 @@ import {
 } from '@udecode/plate-combobox';
 import { useEditorState, useEventEditorSelectors } from '@udecode/plate-core';
 import {
+  flip,
   getRangeBoundingClientRect,
   offset,
+  shift,
   useVirtualFloating,
 } from '@udecode/plate-floating';
 import { PortalBody } from '@udecode/plate-styled-components';
@@ -38,7 +40,7 @@ const ComboboxContent = <TData extends Data = NoData>(
   const targetRange = useComboboxSelectors.targetRange();
   const filteredItems = useComboboxSelectors.filteredItems();
   const highlightedIndex = useComboboxSelectors.highlightedIndex();
-  const floatingOptions = useComboboxSelectors.floatingOptions?.();
+  const floatingOptions = useComboboxSelectors.floatingOptions();
   const editor = useEditorState();
   const combobox = useComboboxControls();
   const activeComboboxStore = useActiveComboboxStore()!;
@@ -78,7 +80,7 @@ const ComboboxContent = <TData extends Data = NoData>(
   const { style, floating } = useVirtualFloating({
     placement: 'bottom-start',
     getBoundingClientRect,
-    middleware: [offset(4)],
+    middleware: [offset(4), shift(), flip()],
     ...floatingOptions,
   });
 
@@ -150,12 +152,23 @@ export const Combobox = <TData extends Data = NoData>({
   maxSuggestions,
   filter,
   sort,
+  floatingOptions,
+  disabled: _disabled,
   ...props
 }: ComboboxProps<TData>) => {
+  const storeItems = useComboboxSelectors.items();
+  const disabled = _disabled ?? (!storeItems.length && !props.items?.length);
+
   const editor = useEditorState();
   const focusedEditorId = useEventEditorSelectors.focus?.();
   const combobox = useComboboxControls();
   const activeId = useComboboxSelectors.activeId();
+
+  useEffect(() => {
+    if (floatingOptions) {
+      comboboxActions.floatingOptions(floatingOptions);
+    }
+  }, [floatingOptions]);
 
   useEffect(() => {
     comboboxActions.setComboboxById({
@@ -183,7 +196,8 @@ export const Combobox = <TData extends Data = NoData>({
     !combobox ||
     !editor.selection ||
     focusedEditorId !== editor.id ||
-    activeId !== id
+    activeId !== id ||
+    disabled
   ) {
     return null;
   }

@@ -1,5 +1,59 @@
 # @udecode/plate-excalidraw
 
+## 18.13.0
+
+## 18.12.1
+
+## 18.12.0
+
+### Minor Changes
+
+- [#2014](https://github.com/udecode/plate/pull/2014) by [@firehudson](https://github.com/firehudson) – Add toolbar button to allow adding excalidraw board on demand
+
+## 18.9.0
+
+### Patch Changes
+
+- [#1975](https://github.com/udecode/plate/pull/1975) by [@firehudson](https://github.com/firehudson) – Fix import for Excalidraw component
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.4.0
+
+### Minor Changes
+
+- [#1943](https://github.com/udecode/plate/pull/1943) by [@firehudson](https://github.com/firehudson) – Upgrade Excalidraw Version from @excalidraw/excalidraw-next@0.8.0-69b6fbb to @excalidraw/excalidraw@0.12.0
+
+## 18.2.0
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.5.0
+
+## 16.3.0
+
+## 16.2.0
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.3
+
 ## 15.0.0
 
 ## 14.4.2

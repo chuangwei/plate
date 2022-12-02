@@ -14,14 +14,22 @@ describe('insertTableColumn', () => {
         <editor>
           <htable>
             <htr>
-              <htd>11</htd>
-              <htd>12</htd>
+              <htd>
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
             </htr>
             <htr>
-              <htd>21</htd>
               <htd>
-                22
-                <cursor />
+                <hp>21</hp>
+              </htd>
+              <htd>
+                <hp>
+                  22
+                  <cursor />
+                </hp>
               </htd>
             </htr>
           </htable>
@@ -32,17 +40,29 @@ describe('insertTableColumn', () => {
         <editor>
           <htable>
             <htr>
-              <htd>11</htd>
-              <htd>12</htd>
               <htd>
-                <htext />
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
+              <htd>
+                <hp>
+                  <htext />
+                </hp>
               </htd>
             </htr>
             <htr>
-              <htd>21</htd>
-              <htd>22</htd>
               <htd>
-                <cursor />
+                <hp>21</hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
+              <htd>
+                <hp>
+                  <cursor />
+                </hp>
               </htd>
             </htr>
           </htable>
@@ -71,12 +91,20 @@ describe('insertTableColumn', () => {
         <editor>
           <htable>
             <htr>
-              <htd>11</htd>
-              <htd>12</htd>
+              <htd>
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
             </htr>
             <htr>
-              <htd>21</htd>
-              <htd>22</htd>
+              <htd>
+                <hp>21</hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
             </htr>
           </htable>
         </editor>
@@ -86,18 +114,30 @@ describe('insertTableColumn', () => {
         <editor>
           <htable>
             <htr>
-              <htd>11</htd>
               <htd>
-                <htext />
+                <hp>11</hp>
               </htd>
-              <htd>12</htd>
+              <htd>
+                <hp>
+                  <htext />
+                </hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
             </htr>
             <htr>
-              <htd>21</htd>
               <htd>
-                <cursor />
+                <hp>21</hp>
               </htd>
-              <htd>22</htd>
+              <htd>
+                <hp>
+                  <cursor />
+                </hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
             </htr>
           </htable>
         </editor>
@@ -113,6 +153,83 @@ describe('insertTableColumn', () => {
       });
 
       insertTableColumn(editor, { fromCell: [0, 1, 0] });
+
+      expect(editor.children).toEqual(output.children);
+      expect(editor.selection).toEqual(output.selection);
+    });
+  });
+
+  describe('when using at', () => {
+    it('should insert', () => {
+      const input = ((
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>
+                  21
+                  <cursor />
+                </hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
+            </htr>
+          </htable>
+        </editor>
+      ) as any) as PlateEditor;
+
+      const output = ((
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>
+                  <htext />
+                </hp>
+              </htd>
+              <htd>
+                <hp>11</hp>
+              </htd>
+              <htd>
+                <hp>12</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>
+                  <cursor />
+                </hp>
+              </htd>
+              <htd>
+                <hp>21</hp>
+              </htd>
+              <htd>
+                <hp>22</hp>
+              </htd>
+            </htr>
+          </htable>
+        </editor>
+      ) as any) as PlateEditor;
+
+      const editor = createPlateEditor({
+        editor: input,
+        plugins: [
+          createTablePlugin({
+            options: { newCellChildren: [{ text: '' }] },
+          }),
+        ],
+      });
+
+      insertTableColumn(editor, { at: [0, 0, 0] });
 
       expect(editor.children).toEqual(output.children);
       expect(editor.selection).toEqual(output.selection);

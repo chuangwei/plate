@@ -23,6 +23,8 @@ export const triggerFloatingLinkEdit = <V extends Value>(
 
   floatingLinkActions.url(link.url);
 
+  floatingLinkActions.newTab(link.target === undefined);
+
   if (text === link.url) {
     text = '';
   }
@@ -30,4 +32,6 @@ export const triggerFloatingLinkEdit = <V extends Value>(
   floatingLinkActions.text(text);
 
   floatingLinkActions.isEditing(true);
+
+  return true;
 };

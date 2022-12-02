@@ -1,5 +1,139 @@
 # @udecode/plate-headless
 
+## 18.13.0
+
+### Minor Changes
+
+- [#1829](https://github.com/udecode/plate/pull/1829) by [@osamatanveer](https://github.com/osamatanveer) –
+  - new plugin: comments
+
+## 18.12.2
+
+## 18.11.2
+
+## 18.11.1
+
+### Patch Changes
+
+- [#2016](https://github.com/udecode/plate/pull/2016) by [@bojangles-m](https://github.com/bojangles-m) – chore: added emoji package
+
+## 18.11.0
+
+### Minor Changes
+
+- [#2007](https://github.com/udecode/plate/pull/2007) by [@bojangles-m](https://github.com/bojangles-m) – New plugin: emoji
+
+## 18.10.3
+
+## 18.10.1
+
+## 18.9.2
+
+## 18.9.1
+
+## 18.9.0
+
+## 18.8.1
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.5.1
+
+## 18.5.0
+
+## 18.3.1
+
+## 18.3.0
+
+## 18.2.1
+
+## 18.2.0
+
+## 18.1.3
+
+## 18.1.2
+
+## 18.1.1
+
+## 18.1.0
+
+## 18.0.0
+
+### Major Changes
+
+- [#1889](https://github.com/udecode/plate/pull/1889) by [@zbeyens](https://github.com/zbeyens) –
+  - `@udecode/plate-selection` package moved out from `@udecode/plate` because of https://github.com/Simonwep/selection/issues/124
+  - Migration:
+    - If not using `createBlockSelectionPlugin`, no migration is needed.
+    - Otherwise, install `@udecode/plate-selection` and import `createBlockSelectionPlugin` from that package.
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.9.1
+
+## 16.9.0
+
+## 16.8.1
+
+## 16.8.0
+
+### Minor Changes
+
+- [#1856](https://github.com/udecode/plate/pull/1856) by [@zbeyens](https://github.com/zbeyens) – New package: `@udecode/plate-selection`
+
+## 16.7.0
+
+## 16.6.1
+
+## 16.6.0
+
+## 16.5.0
+
+## 16.4.2
+
+## 16.4.1
+
+## 16.3.0
+
+## 16.2.3
+
+## 16.2.2
+
+## 16.2.1
+
+## 16.2.0
+
+## 16.1.1
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.1
+
+## 16.0.0
+
+### Major Changes
+
+- [#1721](https://github.com/udecode/plate/pull/1721) by [@zbeyens](https://github.com/zbeyens) –
+  - deprecate `@udecode/plate-image` and `@udecode/plate-media-embed`, those got merged into `@udecode/plate-media`
+
+## 15.0.6
+
+## 15.0.5
+
+## 15.0.3
+
+## 15.0.1
+
 ## 15.0.0
 
 ### Minor Changes

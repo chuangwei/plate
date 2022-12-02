@@ -1,5 +1,53 @@
 # @udecode/plate-combobox
 
+## 18.13.0
+
+## 18.9.0
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.5.1
+
+### Patch Changes
+
+- [#1950](https://github.com/udecode/plate/pull/1950) by [@guldenmw](https://github.com/guldenmw) – Combobox store: Clear `filteredItems` on reset
+
+## 18.2.0
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.5.0
+
+## 16.3.0
+
+## 16.2.3
+
+### Patch Changes
+
+- [#1786](https://github.com/udecode/plate/pull/1786) by [@zbeyens](https://github.com/zbeyens) – fix: floatingOptions is now defined in the store
+
+## 16.2.0
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.3
+
 ## 15.0.0
 
 ### Major Changes

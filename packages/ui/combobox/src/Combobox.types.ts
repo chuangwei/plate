@@ -24,13 +24,19 @@ export interface ComboboxItemProps<TData> {
 }
 
 export interface ComboboxProps<TData = NoData>
-  extends Partial<Pick<ComboboxState<TData>, 'items'>>,
+  extends Partial<Pick<ComboboxState<TData>, 'items' | 'floatingOptions'>>,
     ComboboxStateById<TData>,
     StyledProps<ComboboxStyles> {
   /**
    * Render this component when the combobox is open (useful to inject hooks).
    */
   component?: RenderFunction<{ store: ComboboxStoreById }>;
+
+  /**
+   * Whether to hide the combobox.
+   * @default !items.length
+   */
+  disabled?: boolean;
 
   /**
    * Render combobox item.

@@ -6,9 +6,11 @@ import {
   createIndentListPlugin,
   createIndentPlugin,
   createParagraphPlugin,
+  createResetNodePlugin,
   ELEMENT_H1,
   ELEMENT_PARAGRAPH,
   Plate,
+  PlateProvider,
   StyledElement,
   toggleIndentList,
   ToolbarButton,
@@ -48,6 +50,7 @@ const plugins = createMyPlugins(
         },
       },
     }),
+    createResetNodePlugin(),
   ],
   {
     components: plateUI,
@@ -55,7 +58,7 @@ const plugins = createMyPlugins(
 );
 
 const ToolbarButtons = () => {
-  const editor = useMyPlateEditorRef()!;
+  const editor = useMyPlateEditorRef();
 
   return (
     <>
@@ -83,18 +86,17 @@ const ToolbarButtons = () => {
 };
 
 export default () => (
-  <>
+  <PlateProvider<MyValue>
+    plugins={plugins}
+    initialValue={indentListValue}
+    normalizeInitialValue
+  >
     <Toolbar>
       <ToolbarButtons />
     </Toolbar>
 
-    <Plate<MyValue>
-      editableProps={editableProps}
-      plugins={plugins}
-      initialValue={indentListValue}
-      normalizeInitialValue
-    />
-  </>
+    <Plate<MyValue> editableProps={editableProps} />
+  </PlateProvider>
 );
 `;
 

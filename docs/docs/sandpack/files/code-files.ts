@@ -7,10 +7,13 @@ import { basicElementsFiles } from './basic-elements/code-basicElementsFiles';
 import { basicMarksFiles } from './basic-marks/code-basicMarksFiles';
 import { basicNodesFiles } from './basic-nodes/code-basicNodesFiles';
 import { basicPluginsFiles } from './basic-plugins/code-basicPluginsFiles';
+import { cloudFiles } from './cloud/code-cloudFiles';
+import { commentsFiles } from './comments/code-commentsFiles';
 import { commonFiles } from './common/code-commonFiles';
 import { cursorOverlayFiles } from './cursor-overlay/code-cursorOverlayFiles';
 import { dndFiles } from './dnd/code-dndFiles';
 import { editableVoidsFiles } from './editable-voids/code-editableVoidsFiles';
+import { emojiFiles } from './emoji/code-emojiFiles';
 import { excalidrawFiles } from './excalidraw/code-excalidrawFiles';
 import { exitBreakFiles } from './exit-break/code-exitBreakFiles';
 import { findReplaceFiles } from './find-replace/code-findReplaceFiles';
@@ -20,14 +23,13 @@ import { highlightFiles } from './highlight/code-highlightFiles';
 import { horizontalRuleFiles } from './horizontal-rule/code-horizontalRuleFiles';
 import { hugeDocumentFiles } from './huge-document/code-hugeDocumentFiles';
 import { iframeFiles } from './iframe/code-iframeFiles';
-import { imageFiles } from './image/code-imageFiles';
 import { indentFiles } from './indent/code-indentFiles';
 import { indentListFiles } from './indent-list/code-indentListFiles';
 import { kbdFiles } from './kbd/code-kbdFiles';
 import { lineHeightFiles } from './line-height/code-lineHeightFiles';
 import { linkFiles } from './link/code-linkFiles';
 import { listFiles } from './list/code-listFiles';
-import { mediaEmbedFiles } from './media-embed/code-mediaEmbedFiles';
+import { mediaFiles } from './media/code-mediaFiles';
 import { mentionFiles } from './mention/code-mentionFiles';
 import { multipleEditorsFiles } from './multiple-editors/code-multipleEditorsFiles';
 import { placeholderFiles } from './placeholder/code-placeholderFiles';
@@ -55,10 +57,13 @@ export const rootFiles = {
   ...basicMarksFiles,
   ...basicNodesFiles,
   ...basicPluginsFiles,
+  ...cloudFiles,
+  ...commentsFiles,
   ...commonFiles,
   ...cursorOverlayFiles,
   ...dndFiles,
   ...editableVoidsFiles,
+  ...emojiFiles,
   ...excalidrawFiles,
   ...exitBreakFiles,
   ...findReplaceFiles,
@@ -68,14 +73,13 @@ export const rootFiles = {
   ...horizontalRuleFiles,
   ...hugeDocumentFiles,
   ...iframeFiles,
-  ...imageFiles,
   ...indentFiles,
   ...indentListFiles,
   ...kbdFiles,
   ...lineHeightFiles,
   ...linkFiles,
   ...listFiles,
-  ...mediaEmbedFiles,
+  ...mediaFiles,
   ...mentionFiles,
   ...multipleEditorsFiles,
   ...placeholderFiles,

@@ -12,6 +12,7 @@ import {
   ELEMENT_CODE_BLOCK,
   ELEMENT_CODE_LINE,
 } from '@udecode/plate-code-block';
+import { ELEMENT_EMOJI, ELEMENT_EMOJI_INPUT } from '@udecode/plate-emoji';
 import { MARK_SEARCH_HIGHLIGHT } from '@udecode/plate-find-replace';
 import {
   ELEMENT_H1,
@@ -22,7 +23,6 @@ import {
   ELEMENT_H6,
 } from '@udecode/plate-heading';
 import { MARK_HIGHLIGHT } from '@udecode/plate-highlight';
-import { ELEMENT_IMAGE } from '@udecode/plate-image';
 import { MARK_KBD } from '@udecode/plate-kbd';
 import { ELEMENT_LINK } from '@udecode/plate-link';
 import {
@@ -31,7 +31,7 @@ import {
   ELEMENT_TODO_LI,
   ELEMENT_UL,
 } from '@udecode/plate-list';
-import { ELEMENT_MEDIA_EMBED } from '@udecode/plate-media-embed';
+import { ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED } from '@udecode/plate-media';
 import { ELEMENT_MENTION, ELEMENT_MENTION_INPUT } from '@udecode/plate-mention';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import {
@@ -45,6 +45,8 @@ export type DefaultPlatePluginKey =
   | typeof ELEMENT_BLOCKQUOTE
   | typeof ELEMENT_CODE_BLOCK
   | typeof ELEMENT_CODE_LINE
+  | typeof ELEMENT_EMOJI
+  | typeof ELEMENT_EMOJI_INPUT
   | typeof ELEMENT_H1
   | typeof ELEMENT_H2
   | typeof ELEMENT_H3

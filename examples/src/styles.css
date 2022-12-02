@@ -12,16 +12,26 @@ td {
 }
 
 [data-slate-editor] {
-  padding: 40px;
+  padding: 84px 50px 50px;
+  position: relative;
 }
 
 .slate-HeadingToolbar {
   padding: 17px 60px !important;
+  position: fixed !important;
+  background: white !important;
+  z-index: 1000;
+  width: 100%;
 }
 
 .tippy-box[data-theme~='tomato'] {
   background-color: tomato;
   color: yellow;
+}
+
+.slate-selection-area {
+  background: #4f90f22d;
+  border: 1px solid #4f90f2;
 }
 
 .drag-button {

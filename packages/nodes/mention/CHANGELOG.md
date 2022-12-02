@@ -1,5 +1,51 @@
 # @udecode/plate-mention
 
+## 18.13.0
+
+## 18.10.3
+
+### Patch Changes
+
+- [#1999](https://github.com/udecode/plate/pull/1999) by [@O4epegb](https://github.com/O4epegb) – Fix mention espace keydown handler: it always prevents default on Escape but it should only happen when there is a mention input
+
+## 18.9.0
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.5.1
+
+## 18.2.0
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.5.0
+
+## 16.3.0
+
+## 16.2.3
+
+## 16.2.0
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.3
+
 ## 15.0.0
 
 ## 14.4.2

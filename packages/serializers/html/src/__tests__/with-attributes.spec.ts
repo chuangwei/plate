@@ -1,5 +1,5 @@
-import { createImagePlugin } from '@udecode/plate-image/src/index';
 import { createLinkPlugin } from '@udecode/plate-link/src/index';
+import { createImagePlugin } from '@udecode/plate-media/src/index';
 import { createPlateUIEditor } from '@udecode/plate-ui/src/utils/createPlateUIEditor';
 import { htmlStringToDOMNode } from '../../../../core/src/plugins/html-deserializer/utils/htmlStringToDOMNode';
 import { serializeHtml } from '../serializeHtml';
@@ -25,7 +25,7 @@ it('serialize link to html with attributes', () => {
           {
             type: 'a',
             url: 'https://theuselessweb.com/',
-            attributes: { target: '_blank', rel: 'noopener nofollow' },
+            attributes: { rel: 'noopener nofollow' },
             children: [{ text: 'link' }],
           },
           { text: ' part.' },
@@ -33,7 +33,7 @@ it('serialize link to html with attributes', () => {
       }
     )
   ).toBe(
-    'Some paragraph of text with <a target="_blank" rel="noopener nofollow" class="slate-a" href="https://theuselessweb.com/">link</a> part.'
+    'Some paragraph of text with <a rel="noopener nofollow" class="slate-a" href="https://theuselessweb.com/">link</a> part.'
   );
 });
 

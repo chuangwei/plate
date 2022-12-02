@@ -2,6 +2,7 @@
 
 import { createPlateUIEditor } from '@udecode/plate/src';
 import { getPluginType, PlateEditor } from '@udecode/plate-core';
+import { ELEMENT_IMAGE } from '@udecode/plate-media/src/index';
 import { jsx } from '@udecode/plate-test-utils';
 import { createListPlugin, ELEMENT_OL, ELEMENT_UL } from '../createListPlugin';
 import { toggleList } from './toggleList';
@@ -31,6 +32,49 @@ describe('toggle on', () => {
     const editor = createPlateUIEditor({
       editor: input,
       plugins: [createListPlugin()],
+    });
+
+    toggleList(editor, { type: getPluginType(editor, ELEMENT_UL) });
+
+    expect(input.children).toEqual(output.children);
+  });
+
+  it('should turn validLiChildrenTypes to list', () => {
+    const input = ((
+      <editor>
+        <himg>
+          <htext>
+            <cursor />
+          </htext>
+        </himg>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const output = ((
+      <editor>
+        <hul>
+          <hli>
+            <himg>
+              <htext />
+            </himg>
+          </hli>
+        </hul>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const editor = createPlateUIEditor({
+      editor: input,
+      plugins: [
+        createListPlugin({
+          overrideByKey: {
+            [ELEMENT_UL]: {
+              options: {
+                validLiChildrenTypes: [ELEMENT_IMAGE],
+              },
+            },
+          },
+        }),
+      ],
     });
 
     toggleList(editor, { type: getPluginType(editor, ELEMENT_UL) });
@@ -97,6 +141,173 @@ describe('toggle on', () => {
           </hli>
           <hli>
             <hlic>3</hlic>
+          </hli>
+        </hul>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const editor = createPlateUIEditor({
+      editor: input,
+      plugins: [createListPlugin()],
+    });
+
+    toggleList(editor, { type: getPluginType(editor, ELEMENT_UL) });
+
+    expect(input.children).toEqual(output.children);
+  });
+
+  it('should turn multiple validLiChildrenTypes to list', () => {
+    const input = ((
+      <editor>
+        <himg>
+          <htext>
+            <anchor />
+          </htext>
+        </himg>
+        <himg>
+          <htext />
+        </himg>
+        <himg>
+          <htext>
+            <focus />
+          </htext>
+        </himg>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const output = ((
+      <editor>
+        <hul>
+          <hli>
+            <himg>
+              <htext />
+            </himg>
+          </hli>
+          <hli>
+            <himg>
+              <htext />
+            </himg>
+          </hli>
+          <hli>
+            <himg>
+              <htext />
+            </himg>
+          </hli>
+        </hul>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const editor = createPlateUIEditor({
+      editor: input,
+      plugins: [
+        createListPlugin({
+          overrideByKey: {
+            [ELEMENT_UL]: {
+              options: {
+                validLiChildrenTypes: [ELEMENT_IMAGE],
+              },
+            },
+          },
+        }),
+      ],
+    });
+
+    toggleList(editor, { type: getPluginType(editor, ELEMENT_UL) });
+
+    expect(input.children).toEqual(output.children);
+  });
+
+  it('should turn multiple p to list in the same order', () => {
+    const input = ((
+      <editor>
+        <hp>
+          <anchor />
+          AAA
+        </hp>
+        <hp>BBB</hp>
+        <hp>CCC</hp>
+        <hp>DDD</hp>
+        <hp>EEE</hp>
+        <hp>
+          FFF
+          <focus />
+        </hp>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const output = ((
+      <editor>
+        <hul>
+          <hli>
+            <hlic>AAA</hlic>
+          </hli>
+          <hli>
+            <hlic>BBB</hlic>
+          </hli>
+          <hli>
+            <hlic>CCC</hlic>
+          </hli>
+          <hli>
+            <hlic>DDD</hlic>
+          </hli>
+          <hli>
+            <hlic>EEE</hlic>
+          </hli>
+          <hli>
+            <hlic>FFF</hlic>
+          </hli>
+        </hul>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const editor = createPlateUIEditor({
+      editor: input,
+      plugins: [createListPlugin()],
+    });
+
+    toggleList(editor, { type: getPluginType(editor, ELEMENT_UL) });
+
+    expect(input.children).toEqual(output.children);
+  });
+
+  it('should turn multiple p to list in the same order', () => {
+    const input = ((
+      <editor>
+        <hp>
+          <focus />
+          AAA
+        </hp>
+        <hp>BBB</hp>
+        <hp>CCC</hp>
+        <hp>DDD</hp>
+        <hp>EEE</hp>
+        <hp>
+          FFF
+          <anchor />
+        </hp>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const output = ((
+      <editor>
+        <hul>
+          <hli>
+            <hlic>AAA</hlic>
+          </hli>
+          <hli>
+            <hlic>BBB</hlic>
+          </hli>
+          <hli>
+            <hlic>CCC</hlic>
+          </hli>
+          <hli>
+            <hlic>DDD</hlic>
+          </hli>
+          <hli>
+            <hlic>EEE</hlic>
+          </hli>
+          <hli>
+            <hlic>FFF</hlic>
           </hli>
         </hul>
       </editor>
@@ -248,6 +459,71 @@ describe('toggle off', () => {
     const editor = createPlateUIEditor({
       editor: input,
       plugins: [createListPlugin()],
+    });
+
+    toggleList(editor, { type: getPluginType(editor, ELEMENT_UL) });
+
+    expect(input.children).toEqual(output.children);
+  });
+
+  it('should turn multiple lists to validLiChildrenTypes', () => {
+    const input = ((
+      <editor>
+        <hul>
+          <hli>
+            <hlic>
+              <htext>
+                <anchor />
+              </htext>
+            </hlic>
+          </hli>
+          <hli>
+            <himg>
+              <htext />
+            </himg>
+          </hli>
+          <hli>
+            <himg>
+              <htext>
+                <focus />
+              </htext>
+            </himg>
+          </hli>
+        </hul>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const output = ((
+      <editor>
+        <hp>
+          <htext>
+            <anchor />
+          </htext>
+        </hp>
+        <himg>
+          <htext />
+        </himg>
+        <himg>
+          <htext>
+            <focus />
+          </htext>
+        </himg>
+      </editor>
+    ) as any) as PlateEditor;
+
+    const editor = createPlateUIEditor({
+      editor: input,
+      plugins: [
+        createListPlugin({
+          overrideByKey: {
+            [ELEMENT_UL]: {
+              options: {
+                validLiChildrenTypes: [ELEMENT_IMAGE],
+              },
+            },
+          },
+        }),
+      ],
     });
 
     toggleList(editor, { type: getPluginType(editor, ELEMENT_UL) });

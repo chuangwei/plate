@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { render } from '@testing-library/react';
 import { isEqual, memoize } from 'lodash';
 import { isBlock } from '../../slate/editor/isBlock';
@@ -94,31 +94,76 @@ describe('Plate', () => {
     });
   });
 
-  describe('adding a Plate instance', () => {
-    it('should render', () => {
-      const error = jest.spyOn(global.console, 'error');
+  describe('when renderAboveSlate renders null', () => {
+    it('should not normalize editor children', () => {
+      const plugins: PlatePlugin[] = [
+        {
+          key: 'a',
+          renderAboveSlate: () => {
+            return null;
+          },
+        },
+      ];
 
-      const PlateContainer = () => {
-        const id = 'main';
-        const [count, setCount] = useState(1);
+      const editor = createPlateEditor({
+        plugins,
+      });
 
-        useEffect(() => {
-          setCount(count + 1);
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
+      expect(() =>
+        render(<Plate editor={editor} initialValue={[{}] as any} />)
+      ).not.toThrowError();
+    });
+  });
 
-        return (
-          <>
-            {[...Array(count)].map((x, i) => (
-              <Plate key={`${id}-${i}`} id={`${id}-${i}`} />
-            ))}
-          </>
-        );
-      };
+  describe('when renderAboveSlate renders children', () => {
+    it("should not trigger plugin's normalize", () => {
+      const plugins: PlatePlugin[] = [
+        {
+          key: 'a',
+          renderAboveSlate: ({ children }) => {
+            return <>{children}</>;
+          },
+        },
+      ];
 
-      render(<PlateContainer />);
+      const editor = createPlateEditor({
+        plugins,
+      });
 
-      expect(error).not.toHaveBeenCalled();
+      expect(() =>
+        render(<Plate editor={editor} initialValue={[{}] as any} />)
+      ).toThrowError();
+    });
+  });
+
+  describe('when nested Plate', () => {
+    it('should work', () => {
+      const plugins: PlatePlugin[] = [
+        {
+          key: 'a',
+          isElement: true,
+          isVoid: true,
+          component: ({ children, attributes }) => (
+            <div {...attributes}>
+              <Plate id="test" />
+              {children}
+            </div>
+          ),
+        },
+      ];
+
+      const editor = createPlateEditor({
+        plugins,
+      });
+
+      expect(() =>
+        render(
+          <Plate
+            editor={editor}
+            initialValue={[{ type: 'a', children: [{ text: '' }] }] as any}
+          />
+        )
+      ).not.toThrowError();
     });
   });
 });

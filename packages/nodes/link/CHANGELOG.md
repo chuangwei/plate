@@ -1,5 +1,133 @@
 # @udecode/plate-link
 
+## 18.13.0
+
+### Patch Changes
+
+- [#1829](https://github.com/udecode/plate/pull/1829) by [@osamatanveer](https://github.com/osamatanveer) –
+  - fix import
+
+## 18.11.0
+
+### Patch Changes
+
+- [#2005](https://github.com/udecode/plate/pull/2005) by [@O4epegb](https://github.com/O4epegb) – Fix link hotkey prevent default
+
+## 18.9.1
+
+### Patch Changes
+
+- [#1981](https://github.com/udecode/plate/pull/1981) by [@O4epegb](https://github.com/O4epegb) – Fix floating link escape handling
+
+## 18.9.0
+
+### Patch Changes
+
+- [#1976](https://github.com/udecode/plate/pull/1976) by [@O4epegb](https://github.com/O4epegb) – Fixes #1771
+
+## 18.8.1
+
+### Patch Changes
+
+- [#1970](https://github.com/udecode/plate/pull/1970) by [@O4epegb](https://github.com/O4epegb) –
+  - Fixes #1771
+  - Fixes #1967
+
+## 18.7.0
+
+## 18.6.0
+
+### Patch Changes
+
+- [#1955](https://github.com/udecode/plate/pull/1955) by [@zbeyens](https://github.com/zbeyens) –
+  - feat:`LinkPlugin` new option `forceSubmit?: boolean`. When true and inserting a link, `enter` key should submit even when url is invalid
+  - fix: when inserting a link, `enter` key should now submit even another key is pressed
+  - fix: hotkey to trigger floating link (`cmd+k` by default) should prevent default
+
+## 18.2.0
+
+## 18.1.1
+
+## 18.1.0
+
+### Minor Changes
+
+- [#1892](https://github.com/udecode/plate/pull/1892) by [@zakishaheen](https://github.com/zakishaheen) – Wrap valid link in anchor element when inserting a break
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.9.1
+
+### Patch Changes
+
+- [#1868](https://github.com/udecode/plate/pull/1868) by [@rawi96](https://github.com/rawi96) –
+  - `upsertLink()` Set nodes also if only the link target has changed.
+
+## 16.9.0
+
+### Minor Changes
+
+- [#1865](https://github.com/udecode/plate/pull/1865) by [@rawi96](https://github.com/rawi96) –
+  - `TLinkElement` new optional prop `target`: allows you to control the link `target` attribute. Default is `undefined` (`_blank`).
+
+## 16.8.0
+
+## 16.5.0
+
+## 16.3.0
+
+## 16.2.2
+
+### Patch Changes
+
+- [#1783](https://github.com/udecode/plate/pull/1783) by [@zbeyens](https://github.com/zbeyens) – fix: https://github.com/udecode/editor-protocol/issues/70
+
+## 16.2.1
+
+### Patch Changes
+
+- [#1765](https://github.com/udecode/plate/pull/1765) by [@zbeyens](https://github.com/zbeyens) – fix:
+  - overall, marks should be kept on link insert/edit
+  - `unwrapLink`: new option `split`
+    - if true: split the link above anchor/focus before unwrapping
+  - `upsertLink`:
+    - replaced `update` option by `insertTextInLink`: if true, insert text when selection is in url
+    - `upsertLinkText`: If the text is different than the link above text, replace link children by a new text. The new text has the same marks than the first text replaced.
+  - specs:
+    - https://github.com/udecode/editor-protocol/issues/47
+    - https://github.com/udecode/editor-protocol/issues/50
+    - https://github.com/udecode/editor-protocol/issues/58
+    - https://github.com/udecode/editor-protocol/issues/59
+    - https://github.com/udecode/editor-protocol/issues/60
+
+## 16.2.0
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.5
+
+### Patch Changes
+
+- [#1715](https://github.com/udecode/plate/pull/1715) by [@tmilewski](https://github.com/tmilewski) – Fix FloatingLinkUrlInput snapping to the previous location on show and to the bottom of the editor upon clicking outside of the element
+
+## 15.0.3
+
+## 15.0.1
+
+### Patch Changes
+
+- [#1697](https://github.com/udecode/plate/pull/1697) by [@zbeyens](https://github.com/zbeyens) – fix: copy/paste was blocked by the link plugin. Now it should work when the data is not a url and not inserted into a link
+
 ## 15.0.0
 
 ### Major Changes

@@ -1,5 +1,121 @@
 # @udecode/plate-table
 
+## 18.13.0
+
+### Patch Changes
+
+- [#1829](https://github.com/udecode/plate/pull/1829) by [@osamatanveer](https://github.com/osamatanveer) –
+  - fix import
+
+## 18.11.0
+
+### Patch Changes
+
+- [#2006](https://github.com/udecode/plate/pull/2006) by [@Raigen](https://github.com/Raigen) – `insertTableColumn`, `insertTableRow`: new option `at`
+
+## 18.9.0
+
+## 18.7.0
+
+## 18.6.0
+
+## 18.2.0
+
+## 18.1.2
+
+### Patch Changes
+
+- [#1914](https://github.com/udecode/plate/pull/1914) by [@zbeyens](https://github.com/zbeyens) – fix: `deleteColumn` supports table with different row sizes
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.6.0
+
+### Minor Changes
+
+- [#1835](https://github.com/udecode/plate/pull/1835) by [@zbeyens](https://github.com/zbeyens) – New table plugin option: `disableUnsetSingleColSize`. Disable unsetting the first column width when the table has one column. Set it to true if you want to resize the table width when there is only one column. Keep it false if you have a full-width table.
+
+## 16.5.0
+
+### Patch Changes
+
+- [#1832](https://github.com/udecode/plate/pull/1832) by [@zbeyens](https://github.com/zbeyens) – Refactor: use `editor.currentKeyboardEvent`
+
+## 16.4.2
+
+### Patch Changes
+
+- [#1821](https://github.com/udecode/plate/pull/1821) by [@zbeyens](https://github.com/zbeyens) –
+
+  - Fixes #1356
+  - Fixes #1359
+
+- [#1819](https://github.com/udecode/plate/pull/1819) by [@zbeyens](https://github.com/zbeyens) – Fix: https://github.com/udecode/editor-protocol/issues/76
+
+## 16.3.0
+
+### Minor Changes
+
+- [#1796](https://github.com/udecode/plate/pull/1796) by [@zbeyens](https://github.com/zbeyens) –
+  - Fixes #1795
+  - Fixes #1794
+  - Fixes #1793
+  - Fixes #1791
+  - Fixes #1798
+  - `getTableCellEntry`:
+    - renamed to `getTableEntries`
+    - returns `table`, `row`, `cell`
+    - is now working when selecting many blocks in a cell
+  - `moveSelectionFromCell`:
+    - new option `fromOneCell`
+    - should not do anything when `at` is in a single cell, unless `fromOneCell` is `true`
+  - `overrideSelectionFromCell`: Override the new selection if the previous selection and the new one are in different cells
+
+## 16.2.0
+
+### Minor Changes
+
+- [#1778](https://github.com/udecode/plate/pull/1778) by [@zbeyens](https://github.com/zbeyens) –
+  - on delete many cells:
+    - replace cell children by a paragraph then reselect all the selected cells
+  - on get fragment (copy):
+    - copying in a single cell should not copy the table anymore
+  - on insert fragment (paste):
+    - pasting multiple blocks into many selected cells will replace these cells children by the same blocks
+    - replace cell children by a paragraph then reselect all the selected cells
+  - on insert text:
+    - it should delete the cells content by preserving the cells
+  - normalize cells:
+    - wrap cell children in a paragraph if they are texts
+  - normalize selection:
+    - it was easy to destroy the table structure when selection goes beyond a table. The current fix is to normalize the selection so it selects the whole table (see the specs)
+  - specs:
+    - https://github.com/udecode/editor-protocol/issues/63
+    - https://github.com/udecode/editor-protocol/issues/64
+    - https://github.com/udecode/editor-protocol/issues/65
+    - https://github.com/udecode/editor-protocol/issues/66
+    - https://github.com/udecode/editor-protocol/issues/67
+    - https://github.com/udecode/editor-protocol/issues/68
+    - https://github.com/udecode/editor-protocol/issues/69
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.3
+
 ## 15.0.0
 
 ### Major Changes

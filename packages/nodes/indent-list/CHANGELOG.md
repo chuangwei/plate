@@ -1,5 +1,87 @@
 # @udecode/plate-indent-list
 
+## 18.13.0
+
+## 18.9.2
+
+## 18.9.0
+
+## 18.7.0
+
+### Minor Changes
+
+- [#1960](https://github.com/udecode/plate/pull/1960) by [@zbeyens](https://github.com/zbeyens) –
+  - Now supports pasting google docs lists
+  - New option: `getListStyleType`: Map html element to list style type.
+
+## 18.6.0
+
+### Minor Changes
+
+- [#1959](https://github.com/udecode/plate/pull/1959) by [@zbeyens](https://github.com/zbeyens) –
+  - Now supports pasting google docs lists
+  - New option: `getListStyleType`: Map html element to list style type.
+
+## 18.3.0
+
+### Minor Changes
+
+- [#1931](https://github.com/udecode/plate/pull/1931) by [@zbeyens](https://github.com/zbeyens) – Handle `Enter` key to outdent if empty.
+
+## 18.2.0
+
+## 18.1.3
+
+### Patch Changes
+
+- [#1918](https://github.com/udecode/plate/pull/1918) by [@zbeyens](https://github.com/zbeyens) – Fix indent 0
+
+## 18.1.2
+
+### Patch Changes
+
+- [#1915](https://github.com/udecode/plate/pull/1915) by [@zbeyens](https://github.com/zbeyens) – fix: support indent 0
+
+## 18.1.1
+
+## 17.0.3
+
+## 17.0.2
+
+## 17.0.1
+
+## 17.0.0
+
+## 16.8.0
+
+## 16.7.0
+
+### Minor Changes
+
+- [#1850](https://github.com/udecode/plate/pull/1850) by [@bokuweb](https://github.com/bokuweb) – New prop: `listRestart` - if set, force `listStart` to be `listRestart` instead of the previous `listStart + 1`
+
+## 16.6.1
+
+## 16.5.0
+
+## 16.4.2
+
+## 16.4.1
+
+## 16.3.0
+
+## 16.2.0
+
+## 16.1.0
+
+## 16.0.2
+
+## 16.0.0
+
+## 15.0.6
+
+## 15.0.3
+
 ## 15.0.0
 
 ## 14.4.3

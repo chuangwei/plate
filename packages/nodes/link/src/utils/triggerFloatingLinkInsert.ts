@@ -1,9 +1,7 @@
 import {
   getEditorString,
-  getNodeEntries,
   getPluginType,
   isRangeAcrossBlocks,
-  isText,
   PlateEditor,
   someNode,
   Value,
@@ -37,23 +35,13 @@ export const triggerFloatingLinkInsert = <V extends Value>(
 
   if (isRangeAcrossBlocks(editor, { at: editor.selection })) return;
 
-  // get lowest nodes in selection
-  const _entries = getNodeEntries(editor, {
-    mode: 'lowest',
-  });
-  const entries = [..._entries];
-  if (entries.length !== 1) return;
-
-  const [entry] = entries;
-
-  // void node
-  if (!isText(entry[0])) return;
-
   const hasLink = someNode(editor, {
     match: { type: getPluginType(editor, ELEMENT_LINK) },
   });
   if (hasLink) return;
 
   floatingLinkActions.text(getEditorString(editor, editor.selection));
-  floatingLinkActions.show('insert');
+  floatingLinkActions.show('insert', editor.id);
+
+  return true;
 };

@@ -20,20 +20,25 @@ import { upsertLink } from './index';
 export const submitFloatingLink = <V extends Value>(editor: PlateEditor<V>) => {
   if (!editor.selection) return;
 
-  const { isUrl } = getPluginOptions<LinkPlugin, V>(editor, ELEMENT_LINK);
+  const { isUrl, forceSubmit } = getPluginOptions<LinkPlugin, V>(
+    editor,
+    ELEMENT_LINK
+  );
 
   const url = floatingLinkSelectors.url();
-  const isValid = isUrl?.(url);
+  const isValid = isUrl?.(url) || forceSubmit;
   if (!isValid) return;
 
   const text = floatingLinkSelectors.text();
+  const target = floatingLinkSelectors.newTab() ? undefined : '_self';
 
   floatingLinkActions.hide();
 
   upsertLink(editor, {
     url,
     text,
-    update: true,
+    target,
+    isUrl: (_url) => (forceSubmit || !isUrl ? true : isUrl(_url)),
   });
 
   setTimeout(() => {

@@ -1,3 +1,216 @@
+# 17.0.0
+
+## @udecode/plate-core@17.0.0
+
+### Major Changes
+
+-   [#1871](https://github.com/udecode/plate/pull/1871) by [@zbeyens](https://github.com/zbeyens) –
+
+    -   `usePlateStore`:
+        -   Plate no longer has a global store containing all the editor states (zustand). Each editor store is now defined in a React context tree ([jotai](https://github.com/pmndrs/jotai)). If you need to access all the editor states at once (as you could do before), you'll need to build that layer yourself.
+        -   Plate store is now accessible only below `PlateProvider` or `Plate` (provider-less mode). It means it's no longer accessible outside of a Plate React tree. If you have such use-case, you'll need to build your own layer to share the state between your components.
+        -   You can nest many `PlateProvider` with different scopes (`id` prop). Default scope is `PLATE_SCOPE`
+        -   Hook usage:
+            -   `const value = usePlateSelectors(id).value()`
+            -   `const setValue = usePlateActions(id).value()`
+            -   `const [value, setValue] = usePlateStates(id).value()`
+        -   removed from the store:
+            -   `editableProps`, use the props instead
+            -   `enabled`, use conditional rendering instead
+            -   `isReady`, no point anymore as it's now directly ready
+        -   `useEventPlateId` is still used to get the last focused editor id.
+        -   Functions are stored in an object `{ fn: <here> }`
+            - `const setOnChange = usePlateActions(id).onChange()`
+            - `setOnChange({ fn: newOnChange })`
+    -   `Plate`
+        -   if rendered below `PlateProvider`, it will render `PlateSlate > PlateEditable`
+        -   if rendered without `PlateProvider`, it will render `PlateProvider > PlateSlate > PlateEditable`
+        -   default `id` is no longer `main`, it's now `PLATE_SCOPE`
+    -   `PlateProvider`
+        -   Each provider has an optional `scope`, so you can have multiple providers in the same React tree and use the plate hooks with the corresponding `scope`.
+        -   Plate effects are now run in `PlateProvider`
+            -   `initialValue, value, editor, normalizeInitialValue, normalizeEditor` are no longer defined in an effect (SSR support)
+        -   Props:
+            -   now extends the previous `Plate` props
+            -   if using `PlateProvider`, set the provider props on it instead of `Plate`. `Plate` would only need `editableProps` and `PlateEditableExtendedProps`
+            -   if not using it, set the provider props on `Plate`
+
+    ```tsx
+    // Before
+    <PlateProvider>
+      <Toolbar>
+        <AlignToolbarButtons />
+      </Toolbar>
+
+      <Plate<MyValue> editableProps={editableProps} <MyValue> initialValue={alignValue} plugins={plugins} />
+    </PlateProvider>
+
+    // After
+    <PlateProvider<MyValue> initialValue={alignValue} plugins={plugins}>
+      <Toolbar>
+        <AlignToolbarButtons />
+      </Toolbar>
+
+      <Plate<MyValue> editableProps={editableProps} />
+    </PlateProvider>
+
+    // After (provider-less mode)
+    <Plate<MyValue> editableProps={editableProps} initialValue={alignValue} plugins={plugins} />
+    ```
+
+    -   types:
+        -   store `editor` is no longer nullable
+        -   store `value` is no longer nullable
+        -   `id` type is now `PlateId`
+    -   renamed:
+        -   `SCOPE_PLATE` to `PLATE_SCOPE`
+        -   `getEventEditorId` to `getEventPlateId`
+        -   `getPlateActions().resetEditor` to `useResetPlateEditor()`
+    -   removed:
+        -   `plateIdAtom`
+        -   `usePlateId` for `usePlateSelectors().id()`
+        -   `EditablePlugins` for `PlateEditable`
+        -   `SlateChildren`
+        -   `PlateEventProvider` for `PlateProvider`
+        -   `withPlateEventProvider` for `withPlateProvider`
+        -   `usePlate`
+        -   `usePlatesStoreEffect`
+        -   `useEventEditorId` for `useEventPlateId`
+        -   `platesStore, platesActions, platesSelectors, usePlatesSelectors`
+        -   `getPlateActions` for `usePlateActions`
+        -   `getPlateSelectors` for `usePlateSelectors`
+        -   `getPlateEditorRef` for `usePlateEditorRef`
+        -   `getPlateStore, usePlateStore`
+        -   `EditorId` for `PlateId`
+
+ ## @udecode/plate-code-block@17.0.0
+
+### Major Changes
+
+-   [#1871](https://github.com/udecode/plate/pull/1871) by [@zbeyens](https://github.com/zbeyens) –
+    -   Removed these imports because of build errors:
+        -   `prismjs/components/prism-django`
+        -   `prismjs/components/prism-ejs`
+        -   `prismjs/components/prism-php`
+
+ ## @udecode/plate-ui@17.0.0
+
+### Major Changes
+
+-   [#1871](https://github.com/udecode/plate/pull/1871) by [@zbeyens](https://github.com/zbeyens) –
+    -   Removed `[ELEMENT_CODE_BLOCK]: CodeBlockElement` from Plate UI. You can define it in your app.
+
+# 16.0.0
+
+## @udecode/plate@16.0.0
+## @udecode/plate-headless@16.0.0
+
+### Major Changes
+
+-   [#1721](https://github.com/udecode/plate/pull/1721) by [@zbeyens](https://github.com/zbeyens) –
+    -   deprecate `@udecode/plate-image` and `@udecode/plate-media-embed`, those got merged into `@udecode/plate-media`
+
+ ## @udecode/plate-media@16.0.0
+
+### Major Changes
+
+-   [#1721](https://github.com/udecode/plate/pull/1721) by [@zbeyens](https://github.com/zbeyens) –
+    -   removed:
+        -   `useImageElement` for `useElement`
+        -   `MediaEmbedUrlInput` for `FloatingMediaUrlInput`
+        -   `parseEmbedUrl` for `parseMediaUrl`
+        -   `EmbedProviders`
+    -   renamed:
+        -   `ImageImg` to `Image`
+        -   `ImageCaptionTextarea` to `CaptionTextarea`
+        -   `useImageCaptionString` to `useCaptionString`
+        -   `ImageResizable` to `Resizable`
+
+## @udecode/plate-ui-table@16.0.0
+
+### Major Changes
+
+-   [#1721](https://github.com/udecode/plate/pull/1721) by [@zbeyens](https://github.com/zbeyens) –
+   -   `TableElementBase` props:
+       -   replace `onRenderContainer` by `floatingOptions`
+   -   `TablePopover` is now a floating instead of tippy
+   -   deps:
+       -   replaced `plate-ui-popover` by `plate-floating`
+
+## @udecode/plate-ui@16.0.0
+
+### Major Changes
+
+-   [#1721](https://github.com/udecode/plate/pull/1721) by [@zbeyens](https://github.com/zbeyens) –
+   -   deprecate `@udecode/plate-ui-popover` for `@udecode/plate-floating`
+
+# 15.0.0
+
+## @udecode/plate-combobox@15.0.0
+
+### Major Changes
+
+-   [#1677](https://github.com/udecode/plate/pull/1677) by [@zbeyens](https://github.com/zbeyens) –
+    -   deps:
+        -   replaced `@udecode/plate-ui-popper` by `@udecode/plate-floating`
+    -   `comboboxStore`:
+        -   removed `popperContainer`, use `floatingOptions` instead
+        -   removed `popperOptions`, use `floatingOptions` instead
+
+## @udecode/plate-link@15.0.0
+
+### Major Changes
+
+-   [#1677](https://github.com/udecode/plate/pull/1677) by [@zbeyens](https://github.com/zbeyens) –
+    -   `createLinkPlugin`
+        -   removed `onKeyDownLink` for floating link
+        -   removed `hotkey` for `triggerFloatingLinkHotkeys`
+    -   removed:
+        -   `getAndUpsertLink` for `upsertLink`
+        -   `upsertLinkAtSelection` for `upsertLink`
+    -   `LinkToolbarButton`:
+        -   `onClick` now calls `triggerFloatingLink`
+
+## @udecode/plate-table@15.0.0
+
+### Major Changes
+
+-   [#1677](https://github.com/udecode/plate/pull/1677) by [@zbeyens](https://github.com/zbeyens) –
+   -   remove `addRow` for `insertTableRow`
+   -   remove `addColumn` for `insertTableColumn`
+
+## @udecode/plate@15.0.0
+
+### Major Changes
+
+-   [#1677](https://github.com/udecode/plate/pull/1677) by [@zbeyens](https://github.com/zbeyens) –
+    -   remove `@udecode/plate-ui-popper` dep for `@udecode/plate-floating`
+
+## @udecode/plate-ui-button@15.0.0
+
+### Major Changes
+
+-   [#1677](https://github.com/udecode/plate/pull/1677) by [@zbeyens](https://github.com/zbeyens) –
+    -   moved `Button` to `@udecode/plate-button`
+    -   `Button` is now unstyled
+
+## @udecode/plate-ui-popper@15.0.0
+
+### Major Changes
+
+-   [#1677](https://github.com/udecode/plate/pull/1677) by [@zbeyens](https://github.com/zbeyens) –
+   -   deprecated, use instead `@udecode/plate-floating`
+
+## @udecode/plate-ui-toolbar@15.0.0
+
+### Major Changes
+
+-   [#1677](https://github.com/udecode/plate/pull/1677) by [@zbeyens](https://github.com/zbeyens) –
+   -   remove `@udecode/plate-ui-popper` and `react-popper` deps for `@udecode/plate-floating`
+   -   `BalloonToolbarProps`:
+       -   removed `popperOptions` for `floatingOptions`
+   -   remove `useBalloonToolbarPopper` for `useFloatingToolbar`
+
 # 14.0.0
 
 ## @udecode/plate-core@14.0.0
@@ -149,7 +362,6 @@
   - `getLastNode` -> `getLastNodeByLevel`
   - `getPointBefore` -> `getPointBeforeLocation`
   - `getNodes` -> `getNodeEntries`
-  - `getNodes` -> `getNodeEntries`
   - `isStart` -> `isStartPoint`
   - `isEnd` -> `isEndPoint`
 
@@ -172,7 +384,6 @@
   **Utils**
 
   - `match` signature change:
-
   ```
   <T extends TNode>(
     obj: T,
@@ -180,8 +391,19 @@
     predicate?: Predicate<T>
   )
   ```
+  - `deleteFragment` is now using `Editor.deleteFragment`
 
-## @udecode/plate-styled-components@10.0.0
+## @udecode/plate-table@11.0.0
+
+- `getEmptyTableNode` default options changed. Migration:
+```tsx
+// From (0 row count and col count, previously it was 2)
+getEmptyTableNode(editor)
+// To
+getEmptyTableNode(editor, { rowCount: 2, colCount: 2 })
+```
+
+## @udecode/plate-styled-components@11.0.0
 
 **Generic types**
 - `type StyledElementProps<V extends Value, N extends TElement = EElement<V>, TStyles = {}>`

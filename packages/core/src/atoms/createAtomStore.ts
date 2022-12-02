@@ -2,13 +2,13 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Atom, Scope, SetAtom } from 'jotai/core/atom';
 
-type GetRecord<O> = {
+export type GetRecord<O> = {
   [K in keyof O]: (scope?: Scope) => O[K];
 };
-type SetRecord<O> = {
+export type SetRecord<O> = {
   [K in keyof O]: (scope?: Scope) => (value: O[K]) => void;
 };
-type UseRecord<O> = {
+export type UseRecord<O> = {
   [K in keyof O]: (scope?: Scope) => [O[K], SetAtom<O[K], void>];
 };
 type AtomRecord<O> = {
@@ -34,7 +34,9 @@ export type AtomStoreApi<T, N extends string = ''> = {
   };
 } &
   {
-    [key in keyof Record<UseNameStore<N>, {}>]: () => {
+    [key in keyof Record<UseNameStore<N>, {}>]: (
+      scope?: Scope
+    ) => {
       get: GetRecord<T>;
       set: SetRecord<T>;
       use: UseRecord<T>;
@@ -107,11 +109,41 @@ export const createAtomStore = <T, IT, N extends string = ''>(
   });
 
   const api: any = {
-    [useStoreIndex]: () => ({
-      get: getAtoms,
-      set: setAtoms,
-      use: useAtoms,
-    }),
+    [useStoreIndex]: (scope?: Scope) => {
+      if (scope) {
+        const getAtomsHook = { ...getAtoms };
+        const setAtomsHook = { ...setAtoms };
+        const useAtomsHook = { ...useAtoms };
+
+        Object.keys(getAtomsHook).forEach((key) => {
+          const get = getAtomsHook[key];
+          getAtomsHook[key] = (_scope?: Scope) =>
+            get(_scope ?? scope ?? storeScope);
+        });
+        Object.keys(setAtomsHook).forEach((key) => {
+          const set = setAtomsHook[key];
+          setAtomsHook[key] = (_scope?: Scope) =>
+            set(_scope ?? scope ?? storeScope);
+        });
+        Object.keys(useAtomsHook).forEach((key) => {
+          const use = useAtomsHook[key];
+          useAtomsHook[key] = (_scope?: Scope) =>
+            use(_scope ?? scope ?? storeScope);
+        });
+
+        return {
+          get: getAtomsHook,
+          set: setAtomsHook,
+          use: useAtomsHook,
+        };
+      }
+
+      return {
+        get: getAtoms,
+        set: setAtoms,
+        use: useAtoms,
+      };
+    },
     [storeIndex]: {
       atom: atoms,
     },
